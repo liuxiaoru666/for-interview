@@ -116,3 +116,18 @@ async function fun1(){
 }
 
 ```
+## document.ready和window.onload
+- 执行时机不同：document.ready在DOM结构绘制完毕后就执行，不必等到加载完毕，document.ready是在window.onload是页面所有元素都加载完毕，包括图片等所有元素
+- 执行次数不同：一个页面可以有多个document.ready,但是只能有一个window.onload,写多个只执行最后一个
+
+## 作用域问题
+```javascript
+for (var i = 0; i < 5; i++) {
+    setTimeout(function() {
+        console.log(i);
+    }, 1000);
+}//一秒立即输出5个5
+```
+> 首先setTimeout在延迟之后把事件添加到队列，而不是立即执行，主线程for循环依次执行5次添加队列操作，中间间隔忽略不计，所以会在一秒后立刻打印五次，至于为什么是5个5，而不是12345，因为js没有块级作用域，i是全局变量，5次for循环之后，i已经变成5
+
+## 事件循环Event Loop
